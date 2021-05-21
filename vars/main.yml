@@ -1,2 +1,10 @@
 ---
 # vars file for quarkuscoffeeshop-majestic-monolith
+rhsm_repos:
+  - rhel-8-for-x86_64-appstream-rpms
+  - rhel-8-for-x86_64-baseos-rpms
+
+# force system re-registration
+rhsm_fix_registration: true
+fix_registration: true
+rhsm_setup_insights_client: false

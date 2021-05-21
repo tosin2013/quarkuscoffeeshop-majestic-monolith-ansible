@@ -17,10 +17,11 @@ ansible-galaxy install git+https://github.com/Qubinode/swygue-redhat-subscriptio
 
 To-do
 -----
+[ ] Still working on registration  
 [ ] Deploy dev instance function via ansible tower. Deploy a development instance of [rhel-edge-application-collection](https://github.com/tosin2013/rhel-edge-application-collection) to target device.  
 [ ] Deploy builder image to target rhel edge devices using [rhel-edge-automation-arch](https://github.com/redhat-cop/rhel-edge-automation-arch)  
 [ ] Provision vms on different instances and push builder image?  
-[ ] Test Against smaller devices?
+[ ] Test against smaller devices?
 
 Role Variables
 --------------
@@ -43,7 +44,7 @@ Including an example of how to use your role (for instance, with variables passe
       become: true
       vars: 
         rhsm_user: username@example.com
-        rhsm_pass: Y0uRp@sSw0rd
+        rhsm_password: Y0uRp@sSw0rd
       roles:
         - quarkuscoffeeshop-majestic-monolith-ansible
 

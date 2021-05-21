@@ -3,6 +3,13 @@
 # External Endpoint IP
 external_endpoint: 192.168.1.10
 
+# Registration Info
+rhsm_user: user
+rhsm_pass: password
+
+# Unregister a registered system
+rhsm_unregister: false
+
 # Podman Network
 podman_ip_range: 192.168.22.128/25
 podman_subnet: 192.168.22.0/24

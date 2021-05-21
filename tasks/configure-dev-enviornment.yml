@@ -1,13 +1,14 @@
-- name: ensure system is registered to Red Hat
-  include_role:
-    name: swygue-redhat-subscription
-  tags:
-  - register
+#- name: ensure system is registered to Red Hat
+#  include_role:
+#    name: swygue-redhat-subscription
+#  tags:
+#  - register
 
 - name: Install the latest version of  packages needed for dev enviornment
   ansible.builtin.package:
     name:
-      - container-tools
+      - buildah
+      - skopeo
       - podman
       - slirp4netns
       - pcp-zeroconf
@@ -31,15 +32,15 @@
 - name: Create a podman network
   containers.podman.podman_network:
     name: podman_network
-    ip_range: {{ podman_ip_range }}
-    subnet: {{ podman_subnet }}
-    gateway: {{ podman_gateway }}
+    ip_range: "{{ podman_ip_range }}"
+    subnet: "{{ podman_subnet }}"
+    gateway: "{{ podman_gateway }}"
   become: true
 
 
 - name: permit traffic in default zone for postgres
   ansible.posix.firewalld:
-    port: {{ pg_postgres_port }}/tcp
+    port: "{{ pg_postgres_port }}/tcp"
     permanent: yes
     state: enabled
   tags:
@@ -48,7 +49,7 @@
 
 - name: permit traffic in default zonefor pgadmin
   ansible.posix.firewalld:
-    port: {{ pgadmin_listen_port }}/tcp
+    port: "{{ pgadmin_listen_port }}/tcp"
     permanent: yes
     state: enabled
   tags:
@@ -57,7 +58,7 @@
 
 - name: permit traffic in default zone for application
   ansible.posix.firewalld:
-    port: {{ expose_port }}/tcp
+    port: "{{ expose_port }}/tcp"
     permanent: yes
     state: enabled
   tags:
