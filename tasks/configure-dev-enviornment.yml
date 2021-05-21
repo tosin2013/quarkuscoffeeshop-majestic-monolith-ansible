@@ -1,0 +1,73 @@
+- name: ensure system is registered to Red Hat
+  include_role:
+    name: swygue-redhat-subscription
+  tags:
+  - register
+
+- name: Install the latest version of  packages needed for dev enviornment
+  ansible.builtin.package:
+    name:
+      - container-tools
+      - podman
+      - slirp4netns
+      - pcp-zeroconf
+      - pcp
+      - wget
+      - vim
+      - git
+      - curl
+    state: latest
+  tags:
+  - install_packages
+  - deploy  
+
+- name: set up rootless containers
+  ansible.posix.sysctl:
+    name: user.max_user_namespaces
+    value: '28633'
+    sysctl_file: /etc/sysctl.d/userns.conf
+    reload: yes
+
+- name: Create a podman network
+  containers.podman.podman_network:
+    name: podman_network
+    ip_range: {{ podman_ip_range }}
+    subnet: {{ podman_subnet }}
+    gateway: {{ podman_gateway }}
+  become: true
+
+
+- name: permit traffic in default zone for postgres
+  ansible.posix.firewalld:
+    port: {{ pg_postgres_port }}/tcp
+    permanent: yes
+    state: enabled
+  tags:
+  - configure_firewall_rules
+  - deploy
+
+- name: permit traffic in default zonefor pgadmin
+  ansible.posix.firewalld:
+    port: {{ pgadmin_listen_port }}/tcp
+    permanent: yes
+    state: enabled
+  tags:
+  - configure_firewall_rules
+  - deploy
+
+- name: permit traffic in default zone for application
+  ansible.posix.firewalld:
+    port: {{ expose_port }}/tcp
+    permanent: yes
+    state: enabled
+  tags:
+  - configure_firewall_rules
+  - deploy
+
+- name: reload service firewalld
+  systemd:
+    name: firewalld
+    state: reloaded
+  tags:
+  - configure_firewall_rules
+  - deploy

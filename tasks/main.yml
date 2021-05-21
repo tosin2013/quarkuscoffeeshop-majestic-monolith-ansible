@@ -1,2 +1,6 @@
 ---
 # tasks file for quarkuscoffeeshop-majestic-monolith
+- name:  Configure Dev Enviornment
+  import_tasks: configure-dev-enviornment.yml
+  tags:
+  - configure dev enviornment

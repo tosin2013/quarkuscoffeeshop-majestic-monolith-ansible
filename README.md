@@ -1,12 +1,20 @@
 quarkuscoffeeshop-majestic-monolith tower role
 =========
 
-quarkuscoffeeshop-majestic-monolith is an application that can be deployed using RHEL edge. 
+quarkuscoffeeshop-majestic-monolith is an application that can be deployed using RHEL edge.  This repo uses the scripts created in [RHEL Edge Application collection](https://github.com/tosin2013/rhel-edge-application-collection). This tole will be used in ansible tower to deploy to instances.
 
 Requirements
 ------------
+* ansible.posix.sysctl
+```
+ansible-galaxy collection install ansible.posix
+```
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+To-do
+-----
+[ ] Deploy dev instance function via ansible tower. Deploy a development instance of [rhel-edge-application-collection](https://github.com/tosin2013/rhel-edge-application-collection) to target device.
+[ ] Deploy builder image to target rhel edge devices using [rhel-edge-automation-arch](https://github.com/redhat-cop/rhel-edge-automation-arch)
+
 
 Role Variables
 --------------
@@ -23,9 +31,15 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    ---
+    - hosts: rhel_edge_device
+      remote_user: admin
+      become: true
+      vars: 
+        rhsm_user: username@example.com
+        rhsm_pass: Y0uRp@sSw0rd
       roles:
-         - { role: username.rolename, x: 42 }
+        - quarkuscoffeeshop-majestic-monolith-ansible
 
 License
 -------
