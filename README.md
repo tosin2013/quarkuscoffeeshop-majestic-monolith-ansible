@@ -10,11 +10,17 @@ Requirements
 ansible-galaxy collection install ansible.posix
 ```
 
+The role swygue-redhat-subscription is required by this role to subscribe the system.
+```
+ansible-galaxy install git+https://github.com/Qubinode/swygue-redhat-subscription.git
+```
+
 To-do
 -----
-[ ] Deploy dev instance function via ansible tower. Deploy a development instance of [rhel-edge-application-collection](https://github.com/tosin2013/rhel-edge-application-collection) to target device.
-[ ] Deploy builder image to target rhel edge devices using [rhel-edge-automation-arch](https://github.com/redhat-cop/rhel-edge-automation-arch)
-
+[ ] Deploy dev instance function via ansible tower. Deploy a development instance of [rhel-edge-application-collection](https://github.com/tosin2013/rhel-edge-application-collection) to target device.  
+[ ] Deploy builder image to target rhel edge devices using [rhel-edge-automation-arch](https://github.com/redhat-cop/rhel-edge-automation-arch)  
+[ ] Provision vms on different instances and push builder image?  
+[ ] Test Against smaller devices?
 
 Role Variables
 --------------
