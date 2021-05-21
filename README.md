@@ -26,6 +26,7 @@ To-do
 
 ScreenShots
 ------------------------------------------------
+![CofffeShop](images/coffeeshop.png)
 
 Role Variables
 --------------
