@@ -5,12 +5,13 @@ external_endpoint: 192.168.1.10
 
 # Registration Info
 rhsm_user: user
-rhsm_pass: password
+rhsm_password: password
 
 # Unregister a registered system
 rhsm_unregister: false
 
 # Podman Network
+network_name: rhel-edge
 podman_ip_range: 192.168.22.128/25
 podman_subnet: 192.168.22.0/24
 podman_gateway:  192.168.22.1
@@ -32,13 +33,16 @@ pgsql_user_kickten: "coffeeshopuser"
 pgsql_password_kitchen: "redhat-21"
 
 # POSTGRESS SETTINGS
+pg_direcoty_path: "/pgadmin4"
 pg_database_name: coffeeshopdb
 pg_database_password: redhat-21
 pg_database_user: coffeeshopuser
 pg_postgres_port: 5432
+pg_container_image: registry.redhat.io/rhel8/postgresql-12
 pgadmin_default_email: user@domain.com
 pgadmin_default_password: password
 pgadmin_listen_port: 5433
+pgadmin_container_image: dpage/pgadmin4:latest
 pg_startup_wait_time: 60
 
 

@@ -3,4 +3,16 @@
 - name:  Configure Dev Enviornment
   import_tasks: configure-dev-enviornment.yml
   tags:
-  - configure dev enviornment
+  - configure_dev_enviornment
+  - deploy
+
+- name: deploy application
+  import_tasks: deploy_appication.yml
+  tags:
+  - deploy_application
+  - deploy
+
+- name: remove application
+  import_tasks: remove_application.yaml
+  tags:
+  - remove_application

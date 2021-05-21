@@ -1,0 +1,16 @@
+---
+# What modules does for example
+- name: removing  postgresql pod
+  containers.podman.podman_pod:
+    name: postgresql
+    state: absent
+
+- name: removing  pgadmin4 pod
+  containers.podman.podman_pod:
+    name: pgadmin4
+    state: absent
+
+- name: removing  quarkuscoffeeshop-majestic-monolith pod
+  containers.podman.podman_pod:
+    name: quarkuscoffeeshop-majestic-monolith
+    state: absent

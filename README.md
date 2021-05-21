@@ -8,6 +8,7 @@ Requirements
 * ansible.posix.sysctl
 ```
 ansible-galaxy collection install ansible.posix
+ansible-galaxy collection install containers.podman
 ```
 
 The role swygue-redhat-subscription is required by this role to subscribe the system.
@@ -45,6 +46,7 @@ Including an example of how to use your role (for instance, with variables passe
       vars: 
         rhsm_user: username@example.com
         rhsm_password: Y0uRp@sSw0rd
+        external_endpoint: 192.168.1.10
       roles:
         - quarkuscoffeeshop-majestic-monolith-ansible
 

@@ -1,0 +1,134 @@
+---
+- name: start postgres pod
+  containers.podman.podman_pod:
+    name: postgresql
+    state: started
+    network: slirp4netns:port_handler=slirp4netns    
+    ports:
+      - "{{ pg_postgres_port }}:{{ pg_postgres_port }}"
+  tags:
+  - deploy_postgres
+  - deploy
+
+- name: start pgadmin4 pod
+  containers.podman.podman_pod:
+    name: pgadmin4
+    state: started
+    network: slirp4netns:port_handler=slirp4netns    
+    ports:
+      - "{{ pgadmin_listen_port }}:{{ pgadmin_listen_port }}"
+  tags:
+    - deploy_postgres
+    - deploy
+
+- name: start quarkuscoffeeshop-majestic-monolith pod
+  containers.podman.podman_pod:
+    name: quarkuscoffeeshop-majestic-monolith
+    state: started
+    network: slirp4netns:port_handler=slirp4netns    
+    ports:
+      - "{{ expose_port }}:{{ expose_port }}"
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
+- name: Create a directory for postgres database
+  ansible.builtin.file:
+    path: "{{ pg_direcoty_path }}"
+    state: directory
+    mode: '0755'
+  tags:
+    - deploy_postgres
+    - deploy
+
+
+- name: Login to registry.redhat.io
+  containers.podman.podman_login:
+    username: "{{ rhsm_user }}"
+    password: '{{ rhsm_password }}'
+    registry: registry.redhat.io
+  tags:
+    - deploy_postgres
+    - deploy
+
+- name: Run postgress container 
+  containers.podman.podman_container:
+    name: postgresql-1
+    pod: postgresql
+    image: "{{ pg_container_image }}"
+    restart_policy: always
+    state: started
+    volume:
+      - /pgadmin4:/pgadmin4:z
+    env:
+      POSTGRESQL_DATABASE: "{{ pg_database_name }}"
+      POSTGRESQL_USER: "{{ pg_database_user }}"
+      POSTGRESQL_PASSWORD: "{{ pg_database_password }}"
+  tags:
+  - deploy_postgres
+  - deploy
+
+- name: Run pgadmin4 container 
+  containers.podman.podman_container:
+    name: pgadmin4-1
+    pod: pgadmin4
+    image: "{{ pgadmin_container_image }}"
+    restart_policy: always
+    state: started
+    env:
+      PGADMIN_DEFAULT_EMAIL: "{{ pgadmin_default_email }}"
+      PGADMIN_LISTEN_PORT: "{{ pgadmin_listen_port }}"
+      PGADMIN_DEFAULT_PASSWORD: "{{ pgadmin_default_password }}"
+  tags:
+  - deploy_postgres
+  - deploy
+
+- name: Waiting for PGADMIN port to open
+  wait_for:
+    port: "{{ pgadmin_listen_port }}"
+    delay: "{{ pg_startup_wait_time }}"
+  tags:
+  - deploy_postgres
+  - deploy
+
+- name: Run quarkuscoffeeshop-majestic-monolith container 
+  containers.podman.podman_container:
+    name: quarkuscoffeeshop-majestic-monolith-1
+    pod: quarkuscoffeeshop-majestic-monolith
+    image: "{{ container_image }}:{{ container_tag }}"
+    restart_policy: always
+    state: started
+    env:
+      PGSQL_URL: "{{ pgsql_url }}"
+      PGSQL_USER: "{{ pgsql_user }}"
+      PGSQL_PASSWORD: "{{ pgsql_password }}"
+      PGSQL_URL_BARISTA: "{{ pgsql_url_barista }}"
+      PGSQL_USER_BARISTA: "{{ pgsql_user_barista }}"
+      PGSQL_PASSWORD_BARISTA: "{{ psql_password_barista }}"
+      PGSQL_URL_KITCHEN: "{{ pgsql_url_kitchen }}"
+      PGSQL_USER_KITCHEN: "{{ pgsql_user_kickten }}"
+      PGSQL_PASSWORD_KITCHEN: "{{ pgsql_password_kitchen }}"
+      CORS_ORIGINS: "http://{{ external_endpoint }}" 
+      STREAM_URL: "http://{{ external_endpoint }}:8080/dashboard/stream" 
+      STORE_ID: "{{ store_id }}"
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
+- name: Waiting for quarkuscoffeeshop-majestic-monolith port to open
+  wait_for:
+    port: "{{ expose_port }}"
+    delay: "{{ startup_wait_time }}"
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
+- name: Deployment Result
+  vars:
+    msg: |
+        *****************************************************************************************
+        Open http://{{ external_endpoint }}:{{ pgadmin_listen_port }} in browser to acess pgadmin.
+        Open http://{{ external_endpoint }}:{{ expose_port }} in browser to acess quarkuscoffeeshop-majestic-monolith.
+        *****************************************************************************************
+  debug:
+    msg: "{{ msg.split('\n') }}"
