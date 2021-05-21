@@ -11,6 +11,8 @@
   tags:
   - deploy_application
   - deploy
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy_postgres
 
 - name: remove application
   import_tasks: remove_application.yaml

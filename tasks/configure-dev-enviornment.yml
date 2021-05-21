@@ -47,7 +47,7 @@
   - configure_firewall_rules
   - deploy
 
-- name: permit traffic in default zonefor pgadmin
+- name: permit traffic in default zone for pgadmin
   ansible.posix.firewalld:
     port: "{{ pgadmin_listen_port }}/tcp"
     permanent: yes

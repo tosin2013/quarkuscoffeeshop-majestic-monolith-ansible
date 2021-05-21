@@ -1,7 +1,7 @@
 quarkuscoffeeshop-majestic-monolith tower role
 =========
 
-quarkuscoffeeshop-majestic-monolith is an application that can be deployed using RHEL edge.  This repo uses the applications found in [RHEL Edge Application collection](https://github.com/tosin2013/rhel-edge-application-collection). This tole will be used in ansible tower to deploy to instances.
+quarkuscoffeeshop-majestic-monolith is an application that can be deployed using RHEL edge.  This repo uses the applications found in [RHEL Edge Application collection](https://github.com/tosin2013/rhel-edge-application-collection). This tole will be used in ansible tower to deploy to instances. Check out  the [quarkuscoffeeshop-majestic-monolith project](https://github.com/jeremyrdavis/quarkuscoffeeshop-majestic-monolith) for the source code.
 
 Requirements
 ------------
@@ -40,7 +40,7 @@ podman_ip_range | ip range of podman network |  192.168.22.128/25
 podman_subnet | ip subnet of podman network |  192.168.22.0/24
 podman_gateway | gateway of podman network |  192.168.22.1
 expose_port | quarkuscoffeeshop-majestic-monolith port |  8080
-store_id | store id |  rhel-edge1
+store_id | store id |  ATLANTA # accepted values [RALEIGH, ATLANTA, CHARLOTTE]
 container_image | quarkuscoffeeshop-majestic-monolith repo |  "jeremydavis/quarkuscoffeeshop-majestic-monolith-jvm"
 container_tag | quarkuscoffeeshop-majestic-monolith version | "1.0.2"
 startup_wait_time | startup wait time for  quarkuscoffeeshop-majestic-monolith |  30
@@ -83,6 +83,41 @@ Example Playbook
         external_endpoint: 192.168.1.10
       roles:
         - quarkuscoffeeshop-majestic-monolith-ansible
+
+
+How-To 
+--------
+
+To Deploy 
+
+```
+ansible-playbook -i inventory myplaybook.yml  -t deploy
+```
+
+To clean up 
+```
+ ansible-playbook -i inventory myplaybook.yml  -t remove_application
+```
+
+To register system (WIP)
+```
+ansible-playbook -i inventory myplaybook.yml  -t register
+```
+
+To deploy Postgres ad pgadmin and quarkuscoffeeshop-majestic-monolith  app 
+```
+ansible-playbook -i inventory myplaybook.yml  -t deploy_application
+``
+
+To deploy Postgres ad pgadmin 
+```
+ansible-playbook -i inventory myplaybook.yml  -t deploy_postgres
+```
+
+To deploy quarkuscoffeeshop-majestic-monolith  app 
+```
+ansible-playbook -i inventory myplaybook.yml  -t deploy_quarkuscoffeeshop-majestic-monolith
+```
 
 License
 -------
