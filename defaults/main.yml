@@ -22,14 +22,14 @@ store_id: rhel-edge1
 container_image: "jeremydavis/quarkuscoffeeshop-majestic-monolith-jvm"
 container_tag: "1.0.2"
 startup_wait_time: 30
-pgsql_url: "jdbc:postgresql:/{{ external_endpoint }}:5432/coffeeshopdb?currentSchema=coffeeshop"
+pgsql_url: "jdbc:postgresql://{{ external_endpoint }}:5432/coffeeshopdb?currentSchema=coffeeshop"
 pgsql_user: "coffeeshopuser"
 pgsql_password: "redhat-21"
 pgsql_url_barista: "jdbc:postgresql://{{ external_endpoint }}:5432/coffeeshopdb?currentSchema=barista"
 pgsql_user_barista: "coffeeshopuser"
 psql_password_barista: "redhat-21"
 pgsql_url_kitchen: "jdbc:postgresql://{{ external_endpoint }}:5432/coffeeshopdb?currentSchema=kitchen"
-pgsql_user_kickten: "coffeeshopuser"
+pgsql_user_kitchen: "coffeeshopuser"
 pgsql_password_kitchen: "redhat-21"
 
 # POSTGRESS SETTINGS
