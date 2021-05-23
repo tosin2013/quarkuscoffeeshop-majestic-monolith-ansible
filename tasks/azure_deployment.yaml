@@ -23,12 +23,16 @@
     allocation_method: Static
     name: "{{ azure_ip_name }}"
 
-- name: Create virtual network inteface cards for VM A and B
+- name: Create virtual network interface cards for vm
   azure_rm_networkinterface:
     resource_group: "{{ azure_resource_group }}"
     name: "{{ azure_network_interface_name }}"
     virtual_network: "{{ azure_virtual_network_name }}"
     subnet: "{{ azure_subnet_name }}"
+    ip_configurations:
+      - name: ipconfig1
+        public_ip_address_name: "{{ azure_ip_name }}"
+        primary: True
 
 - name: Create VM
   azure_rm_virtualmachine:
