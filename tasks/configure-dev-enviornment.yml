@@ -18,6 +18,8 @@
       - git
       - curl
     state: latest
+  become: yes
+  become_method: sudo
   tags:
   - install_packages
   - deploy  
