@@ -30,6 +30,8 @@
     value: '28633'
     sysctl_file: /etc/sysctl.d/userns.conf
     reload: yes
+  become: yes
+  become_method: sudo
 
 - name: Create a podman network
   containers.podman.podman_network:
@@ -37,7 +39,8 @@
     ip_range: "{{ podman_ip_range }}"
     subnet: "{{ podman_subnet }}"
     gateway: "{{ podman_gateway }}"
-  become: true
+  become: yes
+  become_method: sudo
 
 
 - name: permit traffic in default zone for postgres
@@ -45,6 +48,8 @@
     port: "{{ pg_postgres_port }}/tcp"
     permanent: yes
     state: enabled
+  become: yes
+  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
@@ -54,6 +59,8 @@
     port: "{{ pgadmin_listen_port }}/tcp"
     permanent: yes
     state: enabled
+  become: yes
+  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
@@ -63,6 +70,8 @@
     port: "{{ expose_port }}/tcp"
     permanent: yes
     state: enabled
+  become: yes
+  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
@@ -71,6 +80,8 @@
   systemd:
     name: firewalld
     state: reloaded
+  become: yes
+  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
