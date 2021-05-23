@@ -4,7 +4,7 @@
   tasks: 
   - name: Include all .yaml files except bastion.yaml (2.3)
     include_vars:
-      dir: defaults
+      dir: ../defaults
       
   - name:  Deploy Application
     import_tasks: ../tasks/configure-dev-enviornment.yml
