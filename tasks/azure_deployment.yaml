@@ -41,6 +41,7 @@
     admin_username: azureuser
     admin_password: "{{ azure_vm_admin_password }}"
     vm_size: Standard_B2s
+    os_disk_size_gb: 30
     network_interfaces: "{{ azure_network_interface_name }}"
     image:
       offer: RHEL
