@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: "{{ external_endpoint }}"
   remote_user: "{{ remote_username }}"
   tasks: 
   - name:  Deploy Application
