@@ -6,17 +6,5 @@
     include_vars:
       dir: ../defaults
       
-  - name:  Wipe Application
+  - name:  Wipe all Applications
     import_tasks: ../tasks/remove_application.yaml
-    tags:
-      - postgresql
-  
-  - name:  Wipe Application
-    import_tasks: ../tasks/remove_application.yaml
-    tags:
-      - pgadmin4
-
-  - name:  Wipe Application
-    import_tasks: ../tasks/remove_application.yaml
-    tags:
-      - quarkuscoffeeshop-majestic-monolith
