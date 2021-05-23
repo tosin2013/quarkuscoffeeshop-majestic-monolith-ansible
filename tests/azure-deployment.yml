@@ -1,7 +1,8 @@
 ---
 - hosts: localhost
   remote_user: root
-  roles:
-    - quarkuscoffeeshop-majestic-monolith
-  tags:
-    - deploy_azure_vm
+  tasks: 
+  - name:  Deploy Azure VM
+    import_tasks: azure_deployment.yaml
+    tags:
+      - deploy_azure_vm
