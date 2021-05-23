@@ -3,6 +3,6 @@
   remote_user: root
   tasks: 
   - name:  Deploy Azure VM
-    import_tasks: azure_deployment.yaml
+    import_tasks: ../tasks/azure_deployment.yaml
     tags:
       - deploy_azure_vm
