@@ -41,5 +41,5 @@
     image:
       offer: RHEL
       publisher: RedHat
-      sku: 8_3
+      sku: "8_3"
       version: latest
