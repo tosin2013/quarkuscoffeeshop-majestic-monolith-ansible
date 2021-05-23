@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - quarkuscoffeeshop-majestic-monolith
+  tags:
+    - deploy_azure_vm
