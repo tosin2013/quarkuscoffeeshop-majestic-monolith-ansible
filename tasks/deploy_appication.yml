@@ -37,6 +37,7 @@
     path: "{{ pg_direcoty_path }}"
     state: directory
     mode: '0755'
+  become: yes
   tags:
     - deploy_postgres
     - deploy
