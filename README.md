@@ -108,7 +108,7 @@ ansible-playbook -i inventory myplaybook.yml  -t register
 To deploy Postgres ad pgadmin and quarkuscoffeeshop-majestic-monolith  app 
 ```
 ansible-playbook -i inventory myplaybook.yml  -t deploy_application
-``
+```
 
 To deploy Postgres ad pgadmin 
 ```
@@ -119,6 +119,11 @@ To deploy quarkuscoffeeshop-majestic-monolith  app
 ```
 ansible-playbook -i inventory myplaybook.yml  -t deploy_quarkuscoffeeshop-majestic-monolith
 ```
+
+Demo Deployments
+----------------
+* On Ansible
+
 
 License
 -------
