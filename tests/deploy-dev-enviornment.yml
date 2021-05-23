@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  tasks: 
+  - name:  Deploy Application
+    import_tasks: ../tasks/configure-dev-enviornment.yml
+    tags:
+      - deploy
+
+  - name: deploy application
+    import_tasks: ../tasks/deploy_appication.yml
+    tags:
+    - deploy_application
+    - deploy
+    - deploy_quarkuscoffeeshop-majestic-monolith
+    - deploy_postgres
