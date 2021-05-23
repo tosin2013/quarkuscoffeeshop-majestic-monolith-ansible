@@ -1,5 +1,10 @@
 ---
 # tasks file for quarkuscoffeeshop-majestic-monolith
+- name:  Deploy Azure VM
+  import_tasks: azure_deployment.yaml
+  tags:
+  - deploy_azure_vm
+
 - name:  Configure Dev Enviornment
   import_tasks: configure-dev-enviornment.yml
   tags:
