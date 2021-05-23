@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  remote_user: "{{ remote_username }}"
   tasks: 
   - name:  Deploy Application
     import_tasks: ../tasks/configure-dev-enviornment.yml
