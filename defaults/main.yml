@@ -46,3 +46,12 @@ pgadmin_container_image: dpage/pgadmin4:latest
 pg_startup_wait_time: 60
 
 
+# Azure Variables
+azure_resource_group: rhel-edge-demo
+azure_location: eastus
+azure_virtual_network_name: rhel-edge-demo-network
+azure_ip_name: rhel-edge-demo-ip
+azure_network_interface_name: rhel-edge-demo-interface
+azure_subnet_name: rhel-edge-demo-subnet
+azure_vm_admin_password: KX2PRmTuODQ$
+azure_source_vm_name: rhel-edge-demo

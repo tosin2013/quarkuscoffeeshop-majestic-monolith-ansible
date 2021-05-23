@@ -1,0 +1,45 @@
+---
+- name: Create resource group if doesn't exist
+  azure_rm_resourcegroup:
+    name: "{{ azure_resource_group }}"
+    location: "{{ azure_location }}"
+
+- name: Create virtual network
+  azure_rm_virtualnetwork:
+    resource_group: "{{ azure_resource_group }}"
+    name: "{{ azure_virtual_network_name }}"
+    address_prefixes: "10.0.0.0/16"
+
+- name: Add subnet
+  azure_rm_subnet:
+    resource_group: "{{ azure_resource_group }}"
+    name: "{{ azure_subnet_name }}"
+    address_prefix: "10.0.1.0/24"
+    virtual_network: "{{ azure_virtual_network_name }}"
+
+- name: Create public IP address
+  azure_rm_publicipaddress:
+    resource_group: "{{ azure_resource_group }}"
+    allocation_method: Static
+    name: "{{ azure_ip_name }}"
+
+- name: Create virtual network inteface cards for VM A and B
+  azure_rm_networkinterface:
+    resource_group: "{{ azure_resource_group }}"
+    name: "{{ azure_network_interface_name }}"
+    virtual_network: "{{ azure_virtual_network_name }}"
+    subnet: "{{ azure_subnet_name }}"
+
+- name: Create VM
+  azure_rm_virtualmachine:
+    resource_group: "{{ azure_resource_group }}"
+    name: "{{ azure_source_vm_name }}"
+    admin_username: azureuser
+    admin_password: "{{ azure_vm_admin_password }}"
+    vm_size: Standard_B2s
+    network_interfaces: "{{ azure_network_interface_name }}"
+    image:
+      offer: RHEL
+      publisher: RedHat
+      sku: 8.3
+      version: latest
