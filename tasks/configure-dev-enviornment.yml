@@ -19,7 +19,6 @@
       - curl
     state: latest
   become: yes
-  become_method: sudo
   tags:
   - install_packages
   - deploy  
@@ -41,8 +40,6 @@
     subnet: "{{ podman_subnet }}"
     gateway: "{{ podman_gateway }}"
   become: yes
-  become_method: sudo
-
 
 - name: permit traffic in default zone for postgres
   ansible.posix.firewalld:
@@ -50,7 +47,6 @@
     permanent: yes
     state: enabled
   become: yes
-  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
@@ -61,7 +57,6 @@
     permanent: yes
     state: enabled
   become: yes
-  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
@@ -72,7 +67,6 @@
     permanent: yes
     state: enabled
   become: yes
-  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
@@ -82,7 +76,6 @@
     name: firewalld
     state: reloaded
   become: yes
-  become_method: sudo
   tags:
   - configure_firewall_rules
   - deploy
