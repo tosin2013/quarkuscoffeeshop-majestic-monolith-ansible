@@ -28,23 +28,29 @@
     resource_group: "{{ azure_resource_group }}"
     name: networkSecurityGroup
     rules:
+        - name: 'allow_ssh_traffic'
+          protocol: Tcp
+          destination_port_range: "22"
+          access: Allow
+          priority: 1001
+          direction: Inbound
         - name: 'allow_web_traffic'
           protocol: Tcp
           destination_port_range: "{{ expose_port }}"
           access: Allow
-          priority: 1001
+          priority: 1002
           direction: Inbound
         - name: 'allow_postgres_traffic'
           protocol: Tcp
           destination_port_range: "{{ pg_postgres_port }}"
           access: Allow
-          priority: 1002
+          priority: 1003
           direction: Inbound
         - name: 'allow_pgadmin_traffic'
           protocol: Tcp
           destination_port_range: "{{ pgadmin_listen_port }}"
           access: Allow
-          priority: 1003
+          priority: 1004
           direction: Inbound
 
 - name: Create virtual network interface cards for vm
