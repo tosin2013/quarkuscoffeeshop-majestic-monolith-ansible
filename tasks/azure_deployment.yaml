@@ -25,15 +25,15 @@
 
 - name: Create Network Security Group
     azure_rm_securitygroup:
-    resource_group: "{{ azure_resource_group }}"
-    name: networkSecurityGroup
-    rules:
-        - name: 'allow_web_traffic'
-          protocol: Tcp
-          destination_port_range: 8080
-          access: Allow
-          priority: 1001
-          direction: Inbound
+      resource_group: "{{ azure_resource_group }}"
+      name: networkSecurityGroup
+      rules:
+          - name: 'allow_web_traffic'
+            protocol: Tcp
+            destination_port_range: 8080
+            access: Allow
+            priority: 1001
+            direction: Inbound
 
 - name: Create virtual network interface cards for vm
   azure_rm_networkinterface:
