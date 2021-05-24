@@ -40,6 +40,7 @@
     name: quarkuscoffeeshop-majestic-monolith-firewall
     tags:
       key1: quarkuscoffeeshop-majestic-monolith-firewall
+    append_rule_collections: yes
     application_rule_collections:
       - priority: 110
         action:
@@ -51,6 +52,9 @@
               - type: http
                 port: '8080'
         name: apprulecoll
+    nat_rule_collections:
+    network_rule_collections:
+    ip_configurations:
 
 - name: Create VM
   azure_rm_virtualmachine:
