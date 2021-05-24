@@ -23,37 +23,29 @@
     allocation_method: Static
     name: "{{ azure_ip_name }}"
 
+- name: Create Network Security Group
+    azure_rm_securitygroup:
+    resource_group: "{{ azure_resource_group }}"
+    name: networkSecurityGroup
+    rules:
+        - name: 'allow_web_traffic'
+          protocol: Tcp
+          destination_port_range: 8080
+          access: Allow
+          priority: 1001
+          direction: Inbound
+
 - name: Create virtual network interface cards for vm
   azure_rm_networkinterface:
     resource_group: "{{ azure_resource_group }}"
     name: "{{ azure_network_interface_name }}"
     virtual_network: "{{ azure_virtual_network_name }}"
+    security_group: networkSecurityGroup
     subnet: "{{ azure_subnet_name }}"
     ip_configurations:
       - name: ipconfig1
         public_ip_address_name: "{{ azure_ip_name }}"
         primary: True
-
-- name: Create Azure Firewall
-  azure_rm_azurefirewall:
-    resource_group: "{{ azure_resource_group }}"
-    name: quarkuscoffeeshop-majestic-monolith-firewall
-    tags:
-      key1: quarkuscoffeeshop-majestic-monolith-firewall
-    application_rule_collections:
-      - priority: 110
-        action:
-          type: allow
-        rules:
-          - name: rule1
-            description: Allow inbound rule
-            protocols:
-              - type: http
-                port: '8080'
-        name: apprulecoll
-    nat_rule_collections:
-    network_rule_collections:
-    ip_configurations:
 
 - name: Create VM
   azure_rm_virtualmachine:
