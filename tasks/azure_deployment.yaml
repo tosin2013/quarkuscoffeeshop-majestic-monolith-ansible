@@ -40,7 +40,6 @@
     name: quarkuscoffeeshop-majestic-monolith-firewall
     tags:
       key1: quarkuscoffeeshop-majestic-monolith-firewall
-    append_rule_collections: yes
     application_rule_collections:
       - priority: 110
         action:
