@@ -2,9 +2,13 @@
 - hosts: localhost
   remote_user: root
   tasks: 
+  - name: Include default vars
+    include_vars:
+      dir: ../defaults
+      
   - name:  Deploy Azure VM
     import_tasks: ../tasks/azure_deployment.yaml
     tags:
       - deploy_azure_vm
 
-## sudo lvresize -r -L +10G /dev/mapper/rootvg-homelv
+## sudo lvresize -r -L +40G /dev/mapper/rootvg-homelv
