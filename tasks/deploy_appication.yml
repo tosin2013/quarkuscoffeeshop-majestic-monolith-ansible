@@ -109,8 +109,8 @@
       PGSQL_URL_KITCHEN: "{{ pgsql_url_kitchen }}"
       PGSQL_USER_KITCHEN: "{{ pgsql_user_kitchen }}"
       PGSQL_PASSWORD_KITCHEN: "{{ pgsql_password_kitchen }}"
-      CORS_ORIGINS: "http://{{ external_endpoint }}" 
-      STREAM_URL: "http://{{ external_endpoint }}:8080/dashboard/stream" 
+      CORS_ORIGINS: "http://{{ application_ip }}" 
+      STREAM_URL: "http://{{ application_ip }}:8080/dashboard/stream" 
       STORE_ID: "{{ store_id }}"
   tags:
   - deploy_quarkuscoffeeshop-majestic-monolith
@@ -128,8 +128,8 @@
   vars:
     msg: |
         *****************************************************************************************
-        Open http://{{ external_endpoint }}:{{ pgadmin_listen_port }} in browser to acess pgadmin.
-        Open http://{{ external_endpoint }}:{{ expose_port }} in browser to acess quarkuscoffeeshop-majestic-monolith.
+        Open http://{{ application_ip }}:{{ pgadmin_listen_port }} in browser to acess pgadmin.
+        Open http://{{ application_ip }}:{{ expose_port }} in browser to acess quarkuscoffeeshop-majestic-monolith.
         *****************************************************************************************
   debug:
     msg: "{{ msg.split('\n') }}"
