@@ -1,6 +1,10 @@
 ---
 - hosts: "{{ external_endpoint }}"
   remote_user: "{{ remote_username }}"
+  vars:
+    pgsql_url: "jdbc:postgresql://{{ application_ip }}:5432/coffeeshopdb?currentSchema=coffeeshop"
+    pgsql_url_barista: "jdbc:postgresql://{{ application_ip }}:5432/coffeeshopdb?currentSchema=barista"
+    pgsql_url_kitchen: "jdbc:postgresql://{{ application_ip }}:5432/coffeeshopdb?currentSchema=kitchen"
   tasks: 
   - name: Include default vars
     include_vars:
@@ -12,7 +16,7 @@
       - deploy
 
   - name: deploy application
-    import_tasks: ../tasks/deploy_appication.yml
+    import_tasks: ../tasks/deploy_appication_on_cloud.yml
     tags:
     - deploy_application
     - deploy

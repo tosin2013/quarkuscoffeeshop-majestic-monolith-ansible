@@ -128,8 +128,8 @@
   vars:
     msg: |
         *****************************************************************************************
-        Open http://{{ external_endpoint }}:{{ pgadmin_listen_port }} in browser to acess pgadmin.
-        Open http://{{ external_endpoint }}:{{ expose_port }} in browser to acess quarkuscoffeeshop-majestic-monolith.
+        Open http://{{ application_ip }}:{{ pgadmin_listen_port }} in browser to access pgadmin.
+        Open http://{{ external_endpoint }}:{{ expose_port }} in browser to access quarkuscoffeeshop-majestic-monolith.
         *****************************************************************************************
   debug:
     msg: "{{ msg.split('\n') }}"
