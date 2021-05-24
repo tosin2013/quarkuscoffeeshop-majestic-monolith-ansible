@@ -109,7 +109,7 @@
       PGSQL_URL_KITCHEN: "{{ pgsql_url_kitchen }}"
       PGSQL_USER_KITCHEN: "{{ pgsql_user_kitchen }}"
       PGSQL_PASSWORD_KITCHEN: "{{ pgsql_password_kitchen }}"
-      CORS_ORIGINS: "http://{{ external_endpoint }}:8080" 
+      CORS_ORIGINS: "http://{{ external_endpoint }},http://{{ application_ip }}"
       STREAM_URL: "http://{{ external_endpoint }}:8080/dashboard/stream" 
       STORE_ID: "{{ store_id }}"
   tags:
