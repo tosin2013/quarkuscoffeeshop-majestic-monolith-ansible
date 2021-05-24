@@ -6,3 +6,5 @@
     import_tasks: ../tasks/azure_deployment.yaml
     tags:
       - deploy_azure_vm
+
+## sudo lvresize -r -L +10G /dev/mapper/rootvg-homelv
