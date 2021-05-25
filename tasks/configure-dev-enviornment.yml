@@ -81,7 +81,7 @@
 - name: Git checkout
   ansible.builtin.git:
     repo: 'https://github.com/tosin2013/rhel-edge-application-collection.git'
-    dest: "/home/{{ remote_username }}/rhel-edge-application-collection"
+    dest: "/home/{{ ansible_user }}/rhel-edge-application-collection"
     force: yes
   tags:
   - deploy
