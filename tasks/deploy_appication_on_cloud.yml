@@ -52,6 +52,35 @@
     - deploy_postgres
     - deploy
 
+- name: Download init-postgresql.sql
+  get_url:
+    url: https://raw.githubusercontent.com/jeremyrdavis/quarkuscoffeeshop-majestic-monolith/main/init-postgresql.sql
+    dest: /tmp/init-postgresql.sql
+  delegate_to: "{{ external_endpoint }}"
+
+- name: Change file ownership of  init-postgresql.sql
+  ansible.builtin.file:
+    path: /tmp/init-postgresql.sql
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Create data directory 
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/data
+    state: directory
+    mode: '0755'
+  delegate_to: "{{ external_endpoint }}"
+
+- name: Copy file init-postgresql.sql to data directory
+  ansible.builtin.copy:
+    src: /tmp/init-postgresql.sql
+    dest: /home/{{ ansible_user }}/data/init-postgresql.sql
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+    remote_src: yes
+
 - name: Run postgress container 
   containers.podman.podman_container:
     name: postgresql-1
@@ -60,7 +89,7 @@
     restart_policy: always
     state: started
     volume:
-      - /pgadmin4:/pgadmin4:z
+      - /home/{{ ansible_user }}/data:/data:z
     env:
       POSTGRESQL_DATABASE: "{{ pg_database_name }}"
       POSTGRESQL_USER: "{{ pg_database_user }}"
@@ -68,6 +97,18 @@
   tags:
   - deploy_postgres
   - deploy
+
+- name: Waiting for postgress db port to open
+  wait_for:
+    port: "{{ pg_postgres_port }}"
+    delay: "{{ pg_startup_wait_time }}"
+  tags:
+  - deploy_postgres
+  - deploy
+
+- name: Loading Postgres database
+  ansible.builtin.command: podman exec -i postgresql-1  /bin/bash -c "PGPASSWORD={{ pg_database_password }} psql --username {{ pg_database_user }} {{ pg_database_name }} < /data/init-postgresql.sql"
+
 
 - name: Run pgadmin4 container 
   containers.podman.podman_container:
