@@ -13,8 +13,15 @@
     msg: Disk is smaller than 30G
   when:  "{{ disk_total_s  }} <= 30"
 
-- name: Resize disk
-  ansible.builtin.command:  lvresize -r -L +50G /dev/mapper/rootvg-homelv
-  become: yes
+- name: Extend the logical volume by given space
+  community.general.lvol:
+    vg: rootvg
+    lv: /dev/rootvg/homelv
+    size: +50G
   when:  "{{ disk_total_s  }} <= 30"
+
+#- name: Resize disk
+#  ansible.builtin.command:  lvresize -r -L +50G /dev/mapper/rootvg-homelv
+# become: yes
+#  when:  "{{ disk_total_s  }} <= 30"
   
