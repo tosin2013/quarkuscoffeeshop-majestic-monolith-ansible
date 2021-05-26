@@ -16,7 +16,7 @@
 - name: Extend the logical volume by given space
   community.general.lvol:
     vg: rootvg
-    lv: /dev/rootvg/homelv
+    lv: /dev/mapper/rootvg-homelv
     size: +30G
   become: yes
   when:  "{{ disk_total_s  }} <= 30"
