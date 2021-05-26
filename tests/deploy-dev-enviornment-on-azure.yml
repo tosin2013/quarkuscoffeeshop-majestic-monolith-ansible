@@ -10,6 +10,11 @@
     include_vars:
       dir: ../defaults
       
+  - name:  Validate disk size before deployment
+    import_tasks: ../tasks/validate_azure_disk_size.yml
+    tags:
+      - deploy
+
   - name:  Deploy Application
     import_tasks: ../tasks/configure-dev-enviornment.yml
     tags:
