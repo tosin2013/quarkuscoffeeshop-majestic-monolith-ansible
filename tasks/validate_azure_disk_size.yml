@@ -14,19 +14,8 @@
   when:  "{{ disk_total_s  }} <= 30"
 
 
-- name: Extend the logical volume by given space
-  community.general.lvol:
-    vg: rootvg
-    lv: /dev/mapper/rootvg-homelv
-    size: 40g
-    resizefs: true
-    shrink: false
-    force: yes
+- name: Resize disk
+  ansible.builtin.command: sudo  lvresize -r -L +50G /dev/mapper/rootvg-homelv
   become: yes
   when:  "{{ disk_total_s  }} <= 30"
-
-#- name: Resize disk
-#  ansible.builtin.command:  lvresize -r -L +50G /dev/mapper/rootvg-homelv
-# become: yes
-#  when:  "{{ disk_total_s  }} <= 30"
   
