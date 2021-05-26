@@ -18,6 +18,7 @@
     vg: rootvg
     lv: /dev/rootvg/homelv
     size: +50G
+  become: yes
   when:  "{{ disk_total_s  }} <= 30"
 
 #- name: Resize disk
