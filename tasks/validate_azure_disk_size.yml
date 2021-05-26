@@ -14,7 +14,7 @@
   when:  "{{ disk_total_s  }} <= 30"
 
 - shell: |
-    df -h /home/azureuser | grep -o ".[0-9]G" | head -1 | sed 's/G//'
+    df -h /home/azureuser | grep -o ".[0-9][G,M]" | head -1 | sed 's/G//' | sed 's/M//'
   register: folder_size_raw
 
 - set_fact:
