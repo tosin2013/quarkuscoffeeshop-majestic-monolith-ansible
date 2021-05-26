@@ -9,6 +9,7 @@ Requirements
 ```
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install containers.podman
+ansible-galaxy collection install community.general.lvol
 ```
 
 The role swygue-redhat-subscription is required by this role to subscribe the system.
