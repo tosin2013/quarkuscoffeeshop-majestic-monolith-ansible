@@ -15,7 +15,7 @@
 
 
 - name: Resize disk
-  ansible.builtin.command: sudo  lvresize -r -L +50G /dev/mapper/rootvg-homelv
+  ansible.builtin.command: sudo  lvresize -r -L +30G /dev/mapper/rootvg-homelv
   become: yes
   when:  "{{ disk_total_s  }} <= 30"
   
