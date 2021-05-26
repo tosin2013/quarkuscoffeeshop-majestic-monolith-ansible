@@ -13,9 +13,17 @@
     msg: Disk is smaller than 30G
   when:  "{{ disk_total_s  }} <= 30"
 
+- command: du -sk /path/to/some/directory
+  register: folder_size_raw
 
-- name: Resize disk
-  ansible.builtin.command: sudo  lvresize -r -L +30G /dev/mapper/rootvg-homelv
-  become: yes
-  when:  "{{ disk_total_s  }} <= 30"
+- set_fact:
+    folder_size: "{{ folder_size_raw.stdout.split()[0] }}"
+
+- debug:
+    msg: "{{ folder_size }}"
+    
+#- name: Resize disk
+#  ansible.builtin.command: sudo  lvresize -r -L +30G /dev/mapper/rootvg-homelv
+#  become: yes
+#  when:  "{{ disk_total_s  }} <= 30"
   
