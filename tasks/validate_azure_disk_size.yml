@@ -17,7 +17,7 @@
   community.general.lvol:
     vg: rootvg
     lv: /dev/mapper/rootvg-homelv
-    size: +30g
+    size: 30g
   become: yes
   when:  "{{ disk_total_s  }} <= 30"
 
