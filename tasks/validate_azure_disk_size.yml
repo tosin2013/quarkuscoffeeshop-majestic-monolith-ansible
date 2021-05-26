@@ -13,11 +13,18 @@
     msg: Disk is smaller than 30G
   when:  "{{ disk_total_s  }} <= 30"
 
+- name: Remove the logical volume.
+  lvol:
+    vg: rootvg
+    lv: /dev/mapper/rootvg-homelv
+    state: absent
+    force: yes
+
 - name: Extend the logical volume by given space
   community.general.lvol:
     vg: rootvg
     lv: /dev/mapper/rootvg-homelv
-    size: 80%VG
+    size: 40g
     resizefs: true
     shrink: false
     force: yes
