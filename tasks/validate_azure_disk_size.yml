@@ -18,6 +18,7 @@
     vg: rootvg
     lv: /dev/mapper/rootvg-homelv
     size: 80%VG
+    resizefs: true 
   become: yes
   when:  "{{ disk_total_s  }} <= 30"
 
