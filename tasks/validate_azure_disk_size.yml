@@ -20,6 +20,7 @@
     size: 80%VG
     resizefs: true
     shrink: false
+    force: yes
   become: yes
   when:  "{{ disk_total_s  }} <= 30"
 
