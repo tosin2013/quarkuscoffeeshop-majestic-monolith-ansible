@@ -14,7 +14,7 @@
   when:  "{{ disk_total_s  }} <= 30"
 
 - shell: |
-    df -h /home/{{ ansible_user }} | grep -o ".[0-9]G" | head -1
+    df -h /home/azureuser | grep -o ".[0-9]G" | head -1 | sed 's/G//'
   register: folder_size_raw
 
 - set_fact:
@@ -23,8 +23,8 @@
 - debug:
     msg: "{{ folder_size }}"
     
-#- name: Resize disk
-#  ansible.builtin.command: sudo  lvresize -r -L +30G /dev/mapper/rootvg-homelv
-#  become: yes
-#  when:  "{{ disk_total_s  }} <= 30"
+- name: Resize disk
+  ansible.builtin.command: sudo  lvresize -r -L +30G /dev/mapper/rootvg-homelv
+  become: yes
+  when:  "{{ folder_size  }} <= 30"
   
