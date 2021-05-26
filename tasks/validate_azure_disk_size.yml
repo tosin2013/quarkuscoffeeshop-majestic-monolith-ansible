@@ -17,7 +17,7 @@
   community.general.lvol:
     vg: rootvg
     lv: /dev/rootvg/homelv
-    size: +50G
+    size: +30G
   become: yes
   when:  "{{ disk_total_s  }} <= 30"
 
