@@ -11,4 +11,4 @@
 - name: DEBUG  disk size
   debug:
     msg: Disk is smaller than 30G
-  when: disk_total_s <= 30
+  when:  (disk_total_s  <= 30)
