@@ -37,10 +37,10 @@
 #    name: redis
 #    enabled: yes
 
-- name: Start service redis, if not started
-  ansible.builtin.service:
-    name: redis
-    state: started
+#- name: Start service redis, if not started
+#  ansible.builtin.service:
+#    name: redis
+#    state: started
 
 - name: Enable service pmlogger_daily_report.time and pmlogger_daily_report-poll.timer
   ansible.builtin.service:
