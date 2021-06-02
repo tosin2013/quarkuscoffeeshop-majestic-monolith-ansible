@@ -32,10 +32,10 @@
     reload: yes
   become: yes
 
-- name: Enable service redis
-  ansible.builtin.service:
-    name: redis
-    enabled: yes
+#- name: Enable service redis
+#  ansible.builtin.service:
+#    name: redis
+#    enabled: yes
 
 - name: Start service redis, if not started
   ansible.builtin.service:
