@@ -188,13 +188,21 @@
   - deploy_grafana
   - deploy
 
+- name: Waiting for grafana port to open
+  wait_for:
+    port: "{{ grafana_port }}"
+    delay: "{{ startup_wait_time }}"
+  tags:
+  - deploy_grafana
+  - deploy
+
 - name: Deployment Results
   vars:
     msg: |
         *****************************************************************************************
-        Open http://{{ external_endpoint }}:{{ pgadmin_listen_port }} in browser to acess pgadmin.
-        Open http://{{ external_endpoint }}:{{ expose_port }} in browser to acess quarkuscoffeeshop-majestic-monolith.
-        Open http://{{ external_endpoint }}:{{ grafana_port }} in browser to acess Grafana.
+        Open http://{{ external_endpoint }}:{{ pgadmin_listen_port }} in browser to access pgadmin.
+        Open http://{{ external_endpoint }}:{{ expose_port }} in browser to access quarkuscoffeeshop-majestic-monolith.
+        Open http://{{ external_endpoint }}:{{ grafana_port }} in browser to access Grafana.
         *****************************************************************************************
   debug:
     msg: "{{ msg.split('\n') }}"

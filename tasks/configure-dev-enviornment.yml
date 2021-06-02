@@ -135,8 +135,6 @@
   - configure_firewall_rules
   - deploy
 
-
-    
 - name: Git checkout
   ansible.builtin.git:
     repo: 'https://github.com/tosin2013/rhel-edge-application-collection.git'
