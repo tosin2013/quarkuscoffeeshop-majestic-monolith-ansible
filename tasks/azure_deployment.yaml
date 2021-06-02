@@ -52,6 +52,12 @@
           access: Allow
           priority: 1004
           direction: Inbound
+        - name: 'allow_grafana_traffic'
+          protocol: Tcp
+          destination_port_range: "{{ grafana_port }}"
+          access: Allow
+          priority: 1005
+          direction: Inbound
 
 - name: Create virtual network interface cards for vm
   azure_rm_networkinterface:
