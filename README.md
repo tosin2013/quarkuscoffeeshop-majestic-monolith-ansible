@@ -66,6 +66,10 @@ pgadmin_default_password | pgadmin default password |  password
 pgadmin_listen_port | pgadmin default port|  5433
 pgadmin_container_image | pgadmin default container image |  dpage/pgadmin4:latest
 pg_startup_wait_time | pgadmin default container wait startup time |  60
+gf_install_plugin | Default plugin URL | "https://github.com/performancecopilot/grafana-pcp/releases/download/v3.0.3/performancecopilot-pcp-app-3.0.3.zip;performancecopilot-pcp-app" 
+grafana_port | Default Grafana Port | 3000
+gf_container_image | Grafana image location | registry.redhat.io/rhel8/grafana
+gf_container_tag | Grafana image tag | latest
 
 
 Dependencies

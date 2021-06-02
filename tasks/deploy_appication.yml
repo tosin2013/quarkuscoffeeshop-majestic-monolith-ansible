@@ -32,6 +32,17 @@
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
 
+- name: start grafana pod
+  containers.podman.podman_pod:
+    name: grafana
+    state: started
+    network: slirp4netns:port_handler=slirp4netns    
+    ports:
+      - "{{ grafana_port }}:{{ grafana_port }}"
+  tags:
+  - deploy_grafana
+  - deploy
+
 - name: Create a directory for postgres database
   ansible.builtin.file:
     path: "{{ pg_direcoty_path }}"
@@ -164,12 +175,26 @@
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
 
-- name: Deployment Result
+- name: Run grafana container 
+  containers.podman.podman_container:
+    name: grafana-1
+    pod: grafana
+    image: "{{ gf_container_image }}:{{ gf_container_tag }}"
+    restart_policy: always
+    state: started
+    env:
+      GF_INSTALL_PLUGINS: "{{ gf_install_plugin }}"
+  tags:
+  - deploy_grafana
+  - deploy
+
+- name: Deployment Results
   vars:
     msg: |
         *****************************************************************************************
         Open http://{{ external_endpoint }}:{{ pgadmin_listen_port }} in browser to acess pgadmin.
         Open http://{{ external_endpoint }}:{{ expose_port }} in browser to acess quarkuscoffeeshop-majestic-monolith.
+        Open http://{{ external_endpoint }}:{{ grafana_port }} in browser to acess Grafana.
         *****************************************************************************************
   debug:
     msg: "{{ msg.split('\n') }}"

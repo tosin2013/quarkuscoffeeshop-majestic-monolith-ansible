@@ -48,6 +48,11 @@ pgadmin_listen_port: 5433
 pgadmin_container_image: docker.io/dpage/pgadmin4:latest
 pg_startup_wait_time: 60
 
+# Grafana Variables
+gf_install_plugin: "https://github.com/performancecopilot/grafana-pcp/releases/download/v3.0.3/performancecopilot-pcp-app-3.0.3.zip;performancecopilot-pcp-app" 
+grafana_port: 3000
+gf_container_image: registry.redhat.io/rhel8/grafana
+gf_container_tag: latest
 
 # Azure Variables
 azure_resource_group: rhel-edge-demo

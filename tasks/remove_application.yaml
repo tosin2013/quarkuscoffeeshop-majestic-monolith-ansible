@@ -14,3 +14,8 @@
   containers.podman.podman_pod:
     name: quarkuscoffeeshop-majestic-monolith
     state: absent
+
+- name: removing grafana pod
+  containers.podman.podman_pod:
+    name: grafana
+    state: absent

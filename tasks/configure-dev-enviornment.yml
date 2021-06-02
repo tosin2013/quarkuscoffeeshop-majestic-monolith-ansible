@@ -17,6 +17,7 @@
       - vim
       - git
       - curl
+      - redis 
     state: latest
   become: yes
   tags:
@@ -30,6 +31,42 @@
     sysctl_file: /etc/sysctl.d/userns.conf
     reload: yes
   become: yes
+
+- name: Enable service redis
+  ansible.builtin.service:
+    name: redis
+    enabled: yes
+
+- name: Start service redis, if not started
+  ansible.builtin.service:
+    name: redis
+    state: started
+
+- name: Enable service pmlogger_daily_report.time and pmlogger_daily_report-poll.timer
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: yes
+  with_items: 
+    - pmlogger_daily_report.timer
+    - pmlogger_daily_report-poll.timer
+
+- name: Restart service pmcd and pmlogger
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - pmcd
+    - pmlogger
+
+- name: Enable service pmproxy, and not touch the state
+  ansible.builtin.service:
+    name: pmproxy
+    enabled: yes
+
+- name: Start service pmproxy, if not started
+  ansible.builtin.service:
+    name: pmproxy
+    state: started
 
 - name: Create a podman network
   containers.podman.podman_network:
@@ -59,9 +96,29 @@
   - configure_firewall_rules
   - deploy
 
+- name: permit traffic in default zone for Grafana
+  ansible.posix.firewalld:
+    port: "{{ grafana_port }}/tcp"
+    permanent: yes
+    state: enabled
+  become: yes
+  tags:
+  - configure_firewall_rules
+  - deploy
+
 - name: permit traffic in default zone for application
   ansible.posix.firewalld:
     port: "{{ expose_port }}/tcp"
+    permanent: yes
+    state: enabled
+  become: yes
+  tags:
+  - configure_firewall_rules
+  - deploy
+
+- name: permit traffic in default zone for pmproxy
+  ansible.posix.firewalld:
+    service: "pmproxy"
     permanent: yes
     state: enabled
   become: yes
@@ -78,6 +135,8 @@
   - configure_firewall_rules
   - deploy
 
+
+    
 - name: Git checkout
   ansible.builtin.git:
     repo: 'https://github.com/tosin2013/rhel-edge-application-collection.git'
