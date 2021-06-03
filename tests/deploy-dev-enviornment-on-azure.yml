@@ -27,3 +27,4 @@
     - deploy
     - deploy_quarkuscoffeeshop-majestic-monolith
     - deploy_postgres
+    become: yes
