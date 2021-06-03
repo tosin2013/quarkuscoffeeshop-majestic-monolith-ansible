@@ -54,6 +54,9 @@ grafana_port: 3000
 gf_container_image: registry.redhat.io/rhel8/grafana
 gf_container_tag: latest
 
+# Performance Co-Pilot
+pcp_port: 44322
+
 # Azure Variables
 azure_resource_group: rhel-edge-demo
 azure_location: eastus
