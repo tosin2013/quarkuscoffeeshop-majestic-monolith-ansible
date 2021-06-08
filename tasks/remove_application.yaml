@@ -15,6 +15,12 @@
     name: quarkuscoffeeshop-majestic-monolith
     state: absent
 
+- name: Stop service quarkuscoffeeshop-majestic-monolith, if started
+  ansible.builtin.service:
+    name: quarkuscoffeeshop-majestic-monolith
+    state: stopped
+
+
 - name: removing grafana pod
   containers.podman.podman_pod:
     name: grafana

@@ -1,0 +1,15 @@
+#!/bin/bash 
+set -xe 
+if [ -z $1 ];
+then 
+  echo "Please pass application name to generate systemd"
+  echo "USAGE: $0 quarkuscoffeeshop-majestic-monolith"
+fi 
+
+APP_NAME=${1}
+sudo podman ps | tee /tmp/${APP_NAME}.service.log
+sudo podman generate systemd --new  ${APP_NAME}-1 > /tmp/${APP_NAME}.service 
+sudo mv /tmp/${APP_NAME}.service  /etc/systemd/system/
+sudo systemctl daemon-reload 
+sudo systemctl start ${APP_NAME}
+sudo systemctl status ${APP_NAME}| tee /tmp/${APP_NAME}.service.log

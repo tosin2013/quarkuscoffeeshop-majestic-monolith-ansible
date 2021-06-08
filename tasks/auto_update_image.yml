@@ -1,0 +1,35 @@
+##- name: update quarkuscoffeeshop-majestic-monolith image
+#  ansible.builtin.command: sudo podman auto-update
+#  become: yes
+#  become_user: admin
+
+#- name: Waiting for quarkuscoffeeshop-majestic-monolith port to open
+#  wait_for:
+#    port: "{{ expose_port }}"
+#    delay: "{{ startup_wait_time }}"
+
+- name: Get image info quarkuscoffeeshop-majestic-monolith-1 
+  containers.podman.podman_image_info:
+    name: quarkuscoffeeshop-majestic-monolith
+  register: find_output_var
+
+- debug:
+    var: find_output_var.images[0].RepoDigests
+
+- name: Getting quarkuscoffeeshop-majestic-monolith-1  Repo Digest
+  set_fact:
+    repo_digests:  find_output_var.images[0].RepoDigests
+    
+- debug:
+    var: find_output_var.images[0].RepoDigests
+
+
+- name: Deployment Results
+  vars:
+    msg: |
+        *****************************************************************************************
+        quarkuscoffeeshop-majestic-monolith Repo Digests
+        {{ find_output_var.images[0].RepoDigests }}                        
+        *****************************************************************************************
+  debug:
+    msg: "{{ msg.split('\n') }}"

@@ -125,6 +125,11 @@ To deploy quarkuscoffeeshop-majestic-monolith  app
 ansible-playbook -i inventory myplaybook.yml  -t deploy_quarkuscoffeeshop-majestic-monolith
 ```
 
+To update  quarkuscoffeeshop-majestic-monolith image and app
+```
+ansible-playbook -i inventory myplaybook.yml  update_images
+```
+
 Demo Deployments
 ----------------
 * On Ansible

@@ -5,5 +5,6 @@
     rhsm_user: user@example.com
     rhsm_password: LongPassword
     external_endpoint: 192.168.1.10
+    container_tag: latest
   roles:
     - quarkuscoffeeshop-majestic-monolith

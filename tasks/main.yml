@@ -23,3 +23,8 @@
   import_tasks: remove_application.yaml
   tags:
   - remove_application
+
+- name: Update images
+  import_tasks: auto_update_image.yml
+  tags:
+  - update_images

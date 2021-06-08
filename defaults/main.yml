@@ -22,8 +22,8 @@ podman_gateway:  192.168.22.1
 # quarkuscoffeeshop-majestic-monolith app variables
 expose_port: 8080
 store_id: ATLANTA
-container_image: "docker.io/jeremydavis/quarkuscoffeeshop-majestic-monolith-jvm"
-container_tag: "1.0.2"
+container_image: "quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith"
+container_tag: "latest"
 startup_wait_time: 30
 pgsql_url: "jdbc:postgresql://{{ external_endpoint }}:5432/coffeeshopdb?currentSchema=coffeeshop"
 pgsql_user: "coffeeshopuser"
@@ -34,6 +34,7 @@ psql_password_barista: "redhat-21"
 pgsql_url_kitchen: "jdbc:postgresql://{{ external_endpoint }}:5432/coffeeshopdb?currentSchema=kitchen"
 pgsql_user_kitchen: "coffeeshopuser"
 pgsql_password_kitchen: "redhat-21"
+auto_update_image: true
 
 # POSTGRESS SETTINGS
 pg_direcoty_path: "/pgadmin4"
