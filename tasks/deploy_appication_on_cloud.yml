@@ -148,6 +148,7 @@
     name: quarkuscoffeeshop-majestic-monolith-1
     pod: quarkuscoffeeshop-majestic-monolith
     image: "{{ container_image }}:{{ container_tag }}"
+    label: "io.containers.autoupdate=image"
     restart_policy: always
     state: started
     env:
@@ -172,6 +173,26 @@
   wait_for:
     port: "{{ expose_port }}"
     delay: "{{ startup_wait_time }}"
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
+- name: Copying over  quarkuscoffeeshop-majestic-monolith genereate service script
+  template:
+    src: generate-systemd.sh.j2
+    dest:  "/tmp/generate-systemd.sh"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    remote_src: no
+    mode: 0755
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
+- name: Generate  quarkuscoffeeshop-majestic-monolith systemd file and start service
+  ansible.builtin.command: /tmp/generate-systemd.sh quarkuscoffeeshop-majestic-monolith
+  become: yes
+  become_user: admin
   tags:
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
