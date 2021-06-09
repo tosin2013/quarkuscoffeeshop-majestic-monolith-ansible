@@ -191,7 +191,7 @@
 - name: Generate  quarkuscoffeeshop-majestic-monolith systemd file and start service
   ansible.builtin.command: /tmp/generate-systemd.sh quarkuscoffeeshop-majestic-monolith
   become: yes
-  become_user: admin
+  become_user: "{{ ansible_user }}"
   tags:
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
