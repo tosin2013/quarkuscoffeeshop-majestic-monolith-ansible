@@ -1,10 +1,11 @@
 ---
 - hosts: localhost
-  remote_user: root
+  remote_user: admin
   vars: 
     rhsm_user: user@example.com
     rhsm_password: LongPassword
     external_endpoint: 192.168.1.10
     container_tag: latest
+    remote_username: admin
   roles:
     - quarkuscoffeeshop-majestic-monolith
