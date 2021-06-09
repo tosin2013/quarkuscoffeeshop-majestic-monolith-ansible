@@ -1,12 +1,12 @@
 ##- name: update quarkuscoffeeshop-majestic-monolith image
-#  ansible.builtin.command: sudo podman auto-update
-#  become: yes
-#  become_user: admin
+- ansible.builtin.command: sudo podman auto-update
+  become: yes
+  become_user: admin
 
-#- name: Waiting for quarkuscoffeeshop-majestic-monolith port to open
-#  wait_for:
-#    port: "{{ expose_port }}"
-#    delay: "{{ startup_wait_time }}"
+- name: Waiting for quarkuscoffeeshop-majestic-monolith port to open
+  wait_for:
+    port: "{{ expose_port }}"
+    delay: "{{ startup_wait_time }}"
 
 - name: Get image info quarkuscoffeeshop-majestic-monolith-1 
   containers.podman.podman_image_info:
