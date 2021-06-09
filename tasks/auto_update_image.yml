@@ -1,7 +1,7 @@
 ##- name: update quarkuscoffeeshop-majestic-monolith image
 - ansible.builtin.command: sudo podman auto-update
   become: yes
-  become_user: admin
+  become_user: "{{ remote_username }}"
 
 - name: Waiting for quarkuscoffeeshop-majestic-monolith port to open
   wait_for:
