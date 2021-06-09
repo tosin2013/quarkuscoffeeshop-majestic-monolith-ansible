@@ -11,6 +11,8 @@
 - name: Get image info quarkuscoffeeshop-majestic-monolith-1 
   containers.podman.podman_image_info:
     name: quarkuscoffeeshop-majestic-monolith
+  become: yes
+  become_user: "{{ remote_username }}"
   register: find_output_var
 
 - debug:
