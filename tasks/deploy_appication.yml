@@ -176,7 +176,7 @@
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
 
-- name: Copying over  quarkuscoffeeshop-majestic-monolith genereate service script
+- name: Copying over  quarkuscoffeeshop-majestic-monolith generate service script
   template:
     src: generate-systemd.sh.j2
     dest:  "/tmp/generate-systemd.sh"
