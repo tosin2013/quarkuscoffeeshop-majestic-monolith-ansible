@@ -1,0 +1,10 @@
+---
+- hosts: "{{ external_endpoint }}"
+  remote_user: "{{ remote_username }}"
+  tasks: 
+  - name: Import default variables
+    include_vars:
+      dir: ../defaults
+      
+  - name:  Update quarkuscoffeeshop-majestic-monolith Application
+    import_tasks: ../tasks/auto_update_image.yml
