@@ -179,11 +179,11 @@
 
 - name: Copying over  quarkuscoffeeshop-majestic-monolith generate service script
   template:
-    src: generate-systemd.sh.j2
+    src: ../generate-systemd.sh.j2
     dest:  "/tmp/generate-systemd.sh"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    remote_src: yes
+    remote_src: no
     mode: 0755
   tags:
   - deploy_quarkuscoffeeshop-majestic-monolith
