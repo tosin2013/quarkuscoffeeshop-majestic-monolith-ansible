@@ -87,6 +87,14 @@
   become: yes
   become_user: root
 
+- name: Setting permissions on data folder
+  ansible.builtin.command:  setfacl -m u:26:-wx /home/{{ remote_username }}/data
+  become: yes
+  become_user: root
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
 - name: Copy file init-postgresql.sql to data directory
   ansible.builtin.copy:
     src: /tmp/init-postgresql.sql
@@ -97,15 +105,6 @@
     remote_src: yes
   become: yes
   become_user: root
-
-- name: Setting permissions on data folder
-  ansible.builtin.command:  setfacl -m u:26:-wx /home/{{ remote_username }}/data
-  become: yes
-  become_user: root
-  tags:
-  - deploy_quarkuscoffeeshop-majestic-monolith
-  - deploy
-
 
 - name: Run postgress container 
   containers.podman.podman_container:
