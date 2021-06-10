@@ -84,6 +84,8 @@
     group: postgres
     mode: '0755'
   delegate_to: "{{ external_endpoint }}"
+  become: yes
+  become_user: root
 
 - name: Copy file init-postgresql.sql to data directory
   ansible.builtin.copy:
