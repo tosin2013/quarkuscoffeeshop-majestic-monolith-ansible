@@ -92,6 +92,15 @@
     mode: '0755'
     remote_src: yes
 
+- name: Generate  quarkuscoffeeshop-majestic-monolith systemd file and start service
+  ansible.builtin.command:  setfacl -m u:26:-wx /home/{{ ansible_user }}/data
+  become: yes
+  become_user: "{{ remote_username }}"
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
+
 - name: Run postgress container 
   containers.podman.podman_container:
     name: postgresql-1
@@ -100,7 +109,7 @@
     restart_policy: always
     state: started
     volume:
-      - /home/{{ ansible_user }}/data:/data:z
+      - /home/{{ ansible_user }}/data:/var/lib/pgsql/data:z
     env:
       POSTGRESQL_DATABASE: "{{ pg_database_name }}"
       POSTGRESQL_USER: "{{ pg_database_user }}"
@@ -119,7 +128,7 @@
   - deploy
 
 - name: Loading Postgres database
-  ansible.builtin.command: podman exec -i postgresql-1  /bin/bash -c "PGPASSWORD={{ pg_database_password }} psql --username {{ pg_database_user }} {{ pg_database_name }} < /data/init-postgresql.sql"
+  ansible.builtin.command: podman exec -i postgresql-1  /bin/bash -c "PGPASSWORD={{ pg_database_password }} psql --username {{ pg_database_user }} {{ pg_database_name }} < /var/lib/pgsql/data/init-postgresql.sql"
 
 - name: Run pgadmin4 container 
   containers.podman.podman_container:
