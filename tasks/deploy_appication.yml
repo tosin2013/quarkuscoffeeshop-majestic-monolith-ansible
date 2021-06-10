@@ -92,6 +92,14 @@
     mode: '0755'
     remote_src: yes
 
+- name: Setting permissions on data folder
+  ansible.builtin.command:  setfacl -m u:26:-wx /home/{{ ansible_user }}/data
+  become: yes
+  become_user: root
+  tags:
+  - deploy_quarkuscoffeeshop-majestic-monolith
+  - deploy
+
 - name: Run postgres container 
   containers.podman.podman_container:
     name: postgresql-1
@@ -105,7 +113,6 @@
       POSTGRESQL_DATABASE: "{{ pg_database_name }}"
       POSTGRESQL_USER: "{{ pg_database_user }}"
       POSTGRESQL_PASSWORD: "{{ pg_database_password }}"
-      PGDATA: /data
   tags:
   - deploy_postgres
   - deploy
@@ -119,7 +126,7 @@
   - deploy
 
 - name: Loading Postgres database
-  ansible.builtin.command: podman exec -i postgresql-1  /bin/bash -c "PGPASSWORD={{ pg_database_password }} psql --username {{ pg_database_user }} {{ pg_database_name }} < /data/init-postgresql.sql"
+  ansible.builtin.command: podman exec -i postgresql-1  /bin/bash -c "PGPASSWORD={{ pg_database_password }} psql --username {{ pg_database_user }} {{ pg_database_name }} < /var/lib/pgsql/data/init-postgresql.sql"
 
 - name: Run pgadmin4 container 
   containers.podman.podman_container:
@@ -192,7 +199,7 @@
 - name: Generate  quarkuscoffeeshop-majestic-monolith systemd file and start service
   ansible.builtin.command: /tmp/generate-systemd.sh quarkuscoffeeshop-majestic-monolith
   become: yes
-  become_user: "{{ remote_username }}"
+  become_user: "{{ ansible_user }}"
   tags:
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
