@@ -4,24 +4,28 @@
   containers.podman.podman_pod:
     name: postgresql
     state: absent
+  become: yes
 
 - name: removing  pgadmin4 pod
   containers.podman.podman_pod:
     name: pgadmin4
     state: absent
+  become: yes
 
 - name: removing  quarkuscoffeeshop-majestic-monolith pod
   containers.podman.podman_pod:
     name: quarkuscoffeeshop-majestic-monolith
     state: absent
+  become: yes
 
 - name: Stop service quarkuscoffeeshop-majestic-monolith, if started
   ansible.builtin.service:
     name: quarkuscoffeeshop-majestic-monolith
     state: stopped
-
+  become: yes
 
 - name: removing grafana pod
   containers.podman.podman_pod:
     name: grafana
     state: absent
+  become: yes
