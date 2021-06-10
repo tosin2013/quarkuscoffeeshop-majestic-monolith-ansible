@@ -80,6 +80,8 @@
   ansible.builtin.file:
     path: /home/{{ ansible_user }}/data
     state: directory
+    owner: postgres
+    group: postgres
     mode: '0755'
   delegate_to: "{{ external_endpoint }}"
 
