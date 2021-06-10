@@ -83,7 +83,6 @@
     mode: '0755'
   delegate_to: "{{ external_endpoint }}"
 
-
 - name: Copy file init-postgresql.sql to data directory
   ansible.builtin.copy:
     src: /tmp/init-postgresql.sql
@@ -128,7 +127,6 @@
 
 - name: Loading Postgres database
   ansible.builtin.command: podman exec -i postgresql-1  /bin/bash -c "PGPASSWORD={{ pg_database_password }} psql --username {{ pg_database_user }} {{ pg_database_name }} < /var/lib/pgsql/data/init-postgresql.sql"
-
 
 - name: Run pgadmin4 container 
   containers.podman.podman_container:

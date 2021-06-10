@@ -32,17 +32,17 @@
     reload: yes
   become: yes
 
-- name: Enable service redis
-  ansible.builtin.service:
-    name: redis
-    enabled: yes
-  become: yes
+#- name: Enable service redis
+#  ansible.builtin.service:
+#    name: redis
+#    enabled: yes
+#  become: yes
 
-- name: Start service redis, if not started
-  ansible.builtin.service:
-    name: redis
-    state: started
-  become: yes
+#- name: Start service redis, if not started
+#  ansible.builtin.service:
+#    name: redis
+#    state: started
+#  become: yes
 
 - name: Enable service pmlogger_daily_report.time and pmlogger_daily_report-poll.timer
   ansible.builtin.service:
@@ -51,7 +51,6 @@
   with_items: 
     - pmlogger_daily_report.timer
     - pmlogger_daily_report-poll.timer
-  become: yes
 
 - name: Restart service pmcd and pmlogger
   ansible.builtin.service:
@@ -60,19 +59,16 @@
   with_items:
     - pmcd
     - pmlogger
-  become: yes
 
 - name: Enable service pmproxy, and not touch the state
   ansible.builtin.service:
     name: pmproxy
     enabled: yes
-  become: yes
 
 - name: Start service pmproxy, if not started
   ansible.builtin.service:
     name: pmproxy
     state: started
-  become: yes
 
 - name: Create a podman network
   containers.podman.podman_network:
