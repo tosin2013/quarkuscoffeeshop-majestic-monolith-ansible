@@ -91,6 +91,8 @@
     group: postgres
     mode: '0755'
     remote_src: yes
+  become: yes
+  become_user: root
 
 - name: Setting permissions on data folder
   ansible.builtin.command:  setfacl -m u:26:-wx /home/{{ remote_username }}/data
@@ -129,8 +131,7 @@
 
 - name: Loading Postgres database
   ansible.builtin.command: podman exec -i postgresql-1  /bin/bash -c "PGPASSWORD={{ pg_database_password }} psql --username {{ pg_database_user }} {{ pg_database_name }} < /var/lib/pgsql/data/init-postgresql.sql"
-  become: yes
-  become_user: root
+
 
 - name: Run pgadmin4 container 
   containers.podman.podman_container:
