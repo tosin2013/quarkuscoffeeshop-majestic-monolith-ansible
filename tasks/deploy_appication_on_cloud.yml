@@ -80,12 +80,18 @@
   ansible.builtin.file:
     path: /home/{{ ansible_user }}/data
     state: directory
-    owner: postgres
-    group: postgres
     mode: '0755'
   delegate_to: "{{ external_endpoint }}"
-  become: yes
-  become_user: root
+
+
+- name: Copy file init-postgresql.sql to data directory
+  ansible.builtin.copy:
+    src: /tmp/init-postgresql.sql
+    dest: /home/{{ ansible_user }}/data/init-postgresql.sql
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+    remote_src: yes
 
 - name: Setting permissions on data folder
   ansible.builtin.command:  setfacl -m u:26:-wx /home/{{ remote_username }}/data
@@ -95,18 +101,7 @@
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
 
-- name: Copy file init-postgresql.sql to data directory
-  ansible.builtin.copy:
-    src: /tmp/init-postgresql.sql
-    dest: /home/{{ ansible_user }}/data/init-postgresql.sql
-    owner: postgres
-    group: postgres
-    mode: '0755'
-    remote_src: yes
-  become: yes
-  become_user: root
-
-- name: Run postgress container 
+- name: Run postgres container 
   containers.podman.podman_container:
     name: postgresql-1
     pod: postgresql

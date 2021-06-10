@@ -117,7 +117,7 @@
   - deploy_postgres
   - deploy
 
-- name: Waiting for postgress db port to open
+- name: Waiting for postgres db port to open
   wait_for:
     port: "{{ pg_postgres_port }}"
     delay: "{{ pg_startup_wait_time }}"
