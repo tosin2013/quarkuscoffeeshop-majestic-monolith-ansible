@@ -78,7 +78,7 @@
 
 - name: Create data directory 
   ansible.builtin.file:
-    path: /home/{{ ansible_user }}/data
+    path: /home/{{ remote_username }}/data
     state: directory
     mode: '0755'
   delegate_to: "{{ external_endpoint }}"
