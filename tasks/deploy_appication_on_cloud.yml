@@ -115,7 +115,7 @@
     restart_policy: always
     state: started
     volume:
-      - /home/{{ ansible_user }}/data:/var/lib/pgsql/data:z
+      - /home/{{ ansible_user }}/data:/var/lib/pgsql/data:Z
     env:
       POSTGRESQL_DATABASE: "{{ pg_database_name }}"
       POSTGRESQL_USER: "{{ pg_database_user }}"
