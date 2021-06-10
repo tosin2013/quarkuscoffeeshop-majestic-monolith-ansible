@@ -120,7 +120,6 @@
       POSTGRESQL_DATABASE: "{{ pg_database_name }}"
       POSTGRESQL_USER: "{{ pg_database_user }}"
       POSTGRESQL_PASSWORD: "{{ pg_database_password }}"
-      PGDATA: /data
   tags:
   - deploy_postgres
   - deploy
