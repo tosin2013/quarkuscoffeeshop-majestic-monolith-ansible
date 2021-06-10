@@ -92,7 +92,7 @@
     mode: '0755'
     remote_src: yes
 
-- name: Run postgress container 
+- name: Run postgres container 
   containers.podman.podman_container:
     name: postgresql-1
     pod: postgresql
@@ -100,11 +100,12 @@
     restart_policy: always
     state: started
     volume:
-      -  /home/{{ ansible_user }}/data:/var/lib/pgsql/data:z
+      -  /home/{{ ansible_user }}/data:/data:z
     env:
       POSTGRESQL_DATABASE: "{{ pg_database_name }}"
       POSTGRESQL_USER: "{{ pg_database_user }}"
       POSTGRESQL_PASSWORD: "{{ pg_database_password }}"
+      PGDATA: /data
   tags:
   - deploy_postgres
   - deploy
