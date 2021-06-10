@@ -13,6 +13,9 @@
 
   - name: deploy application
     import_tasks: ../tasks/deploy_appication.yml
+    become: true
+    become_method: sudo
+    become_user: "{{ remote_username }}"
     tags:
     - deploy_application
     - deploy
