@@ -35,6 +35,8 @@ pgsql_url_kitchen: "jdbc:postgresql://{{ external_endpoint }}:5432/coffeeshopdb?
 pgsql_user_kitchen: "coffeeshopuser"
 pgsql_password_kitchen: "redhat-21"
 auto_update_image: true
+home_office_url: http://homeoffice-ingress
+
 
 # POSTGRESS SETTINGS
 pg_direcoty_path: "/pgadmin4"

@@ -172,6 +172,7 @@
       CORS_ORIGINS: "http://{{ external_endpoint }}" 
       STREAM_URL: "http://{{ external_endpoint }}:8080/dashboard/stream" 
       STORE_ID: "{{ store_id }}"
+      HOMEOFFICE_URL: "{{ home_office_url }}"
   tags:
   - deploy_quarkuscoffeeshop-majestic-monolith
   - deploy
